@@ -1,0 +1,125 @@
+<DOCTYPE! html>
+<head>
+
+</head>
+<body>
+    <h1>Bibliotek</h1>
+    
+    <form>
+         
+        
+        <div>
+            Tittel:
+            <input type="text" id="txtTittel">
+        </div>
+        
+        <div>
+            Utgivelsesår:
+            <input type="text" value="dd/mm/yyyy" id="txtUtgivelsesår">
+        </div>
+        
+        <div>
+            Navn på forfatter:
+            <input type="text" id="txtForfatter">
+        </div>
+        
+        <div>
+            Forlag:
+            <input type="text" id="txtForlag">
+        </div>
+        
+        <div>
+            Min vurdering av boken:
+            <input type="number" id="nmbVurdering">
+        </div>
+        
+        <div>
+            <input type="button" value="Send Inn" id="btnSendInn" onclick="sendInnn()">
+        </div>
+    
+    
+    </form>
+    
+    
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-database.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyApBFQMeAnn9AdYmxrxK9eqwP3GlFpWnnM",
+        authDomain: "bibliotek-a0e82.firebaseapp.com",
+        databaseURL: "https://bibliotek-a0e82.firebaseio.com",
+        projectId: "bibliotek-a0e82",
+        storageBucket: "bibliotek-a0e82.appspot.com",
+        messagingSenderId: "1082832551667",
+        appId: "1:1082832551667:web:553e289b7269f1e1384186"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    </script>  
+    <script>
+        let db = firebase.database();
+        let bibliotek = db.ref("bibliotek");
+        let txtTittel = document.querySelector("#txtTittel");
+        let txtUtgivelsesår = document.querySelector("#txtUtgivelsesår");
+        let txtForfatter = document.querySelector("#txtForfatter");
+        let txtForlag = document.querySelector("#txtForlag");
+        let nmbVurdering = document.querySelector("#nmbVurdering");
+        
+        function sendInnn() {
+            let Tittel_in = txtTittel.value
+            let Utgivelsesår_in = txtUtgivelsesår.value
+            let Forfatter_in = txtForfatter.value
+            let Forlag_in = txtForlag.value
+            let Vurdering_in = nmbVurdering.value
+            var today = new Date()
+            var dateTime = today.getFullYear()+"0"+today.getMonth()+1+""+today.getDate()+""+today.getHours()+""+today.getMinutes()+""+today.getSeconds()
+            let new_object = bibliotek.child(dateTime)
+            
+            console.log(Tittel_in + Utgivelsesår_in + Forfatter_in + Forlag_in + Vurdering_in);
+            
+            new_object.set(
+                {
+                Tittel : Tittel_in , 
+                Utgivelsesår : Utgivelsesår_in ,
+                Forfatter : Forfatter_in , 
+                Forlag : Forlag_in ,
+                Vurdering : Vurdering_in 
+            }
+            )
+            
+            window.alert("Bok lagt til i database")
+        }
+        
+    </script>
+    
+    
+
+</body>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
